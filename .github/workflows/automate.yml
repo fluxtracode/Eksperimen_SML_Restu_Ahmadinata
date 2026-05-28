@@ -1,0 +1,39 @@
+name: Data Preprocessing Automation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'churn_raw.csv'
+      - 'preprocessing/automate_Restu Ahmadinata.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn
+
+    - name: Run preprocessing script
+      run: |
+        python "preprocessing/automate_Restu Ahmadinata.py"
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add "preprocessing/churn_preprocessing.csv"
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update preprocessed data otomatis"
+        git push
