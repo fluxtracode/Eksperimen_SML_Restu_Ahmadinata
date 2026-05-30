@@ -37,5 +37,3 @@ jobs:
         git add "preprocessing/churn_preprocessing.csv"
         git diff --quiet && git diff --staged --quiet || git commit -m "Update preprocessed data otomatis"
         git push
-
-# end of the line (1)
